@@ -15,6 +15,15 @@
 
 GLuint texture[2];
 
+typedef struct Rect {
+    GLfloat x[COORDSETS];
+    GLfloat y[COORDSETS];
+} Rect;
+
+Rect rects[RECTS] = {
+    {{-2, -2, -1, -1}, {1.0, -1.0, -1.0, 1.0}},
+    {{-3.5, -3.5, -2.5, -2.5}, {1.0, -1.0, -1.0, 1.0}}
+};
 
 void init(void) {
     glClearColor (0.5, 0.5, 0.5, 0.0);
@@ -54,19 +63,6 @@ void init(void) {
     glShadeModel(GL_FLAT);
 }
 
-typedef struct Rect {
-    GLfloat x[COORDSETS];
-    GLfloat y[COORDSETS];
-} Rect;
-
-Rect rects[RECTS] = {
-    {{-2, -2, -1, -1}, {1.0, -1.0, -1.0, 1.0}},
-    {{-3.5, -3.5, -2.5, -2.5}, {1.0, -1.0, -1.0, 1.0}}
-};
-
-float obj_x = 0.0f;
-float obj_y = 0.0f;
-
 void display(void){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glBindTexture(GL_TEXTURE_2D, texture[0]);
@@ -86,7 +82,6 @@ void display(void){
     glEnd();
     glBindTexture(GL_TEXTURE_2D, texture[1]);
     glBegin(GL_QUADS);
-    glTranslatef( obj_x, obj_y, 0.0f );
     glVertex3f(rects[1].x[0],
         rects[1].y[0], 0.0f);
     glTexCoord2f(0.0, 1.0);
@@ -102,8 +97,7 @@ void display(void){
     glutSwapBuffers();
 }
 
-
-void reshape(int w, int h){
+void reshape(int w, int h) {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -112,7 +106,6 @@ void reshape(int w, int h){
     glLoadIdentity();
     glTranslatef(0.0, 0.0, -3.6);
 }
-
 
 void keyboard (unsigned char key, int x, int y){
 
@@ -125,21 +118,18 @@ void keyboard (unsigned char key, int x, int y){
     }
 }
 
-int iteration = 0;
-int wait = 0;
-GLvoid timer( int value )
-{
-   for(int i = 0; i < RECTS; i++) {
-    for(int j = 0; j < COORDSETS; j++){
-        rects[i].x[j] += 0.02;
-        if(rects[i].x[j] > 4) {
-            rects[i].x[0] = -4;
-            rects[i].x[1] = -4;
-            rects[i].x[2] = -3;
-            rects[i].x[3] = -3;
+GLvoid timer( int value ) {
+    for(int i = 0; i < RECTS; i++) {
+        for(int j = 0; j < COORDSETS; j++){
+            rects[i].x[j] += 0.02;
+            if(rects[i].x[j] > 4) {
+                rects[i].x[0] = -4;
+                rects[i].x[1] = -4;
+                rects[i].x[2] = -3;
+                rects[i].x[3] = -3;
+            }
         }
     }
-   }
    glutPostRedisplay();
    glutTimerFunc(40,timer,value);
 }
@@ -147,11 +137,11 @@ GLvoid timer( int value )
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize( 600, 600 );
+    glutInitWindowSize(600, 600);
     glutCreateWindow("GL Texture mapping");
     init();
     glutPostRedisplay();
-    glutReshapeFunc (reshape);
+    glutReshapeFunc(reshape);
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
     glutTimerFunc(40,timer,0);
