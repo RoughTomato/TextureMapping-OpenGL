@@ -37,7 +37,7 @@ void init(void) {
     glGenTextures(2, texture);
     glBindTexture(GL_TEXTURE_2D, texture[0]);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smaller than texture
     glTexImage2D(GL_TEXTURE_2D, 0, 3, image1->w, image1->h, 0,
     GL_RGB, GL_UNSIGNED_BYTE, image1->pixels);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
