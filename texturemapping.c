@@ -132,11 +132,11 @@ GLvoid timer( int value )
    for(int i = 0; i < RECTS; i++) {
     for(int j = 0; j < COORDSETS; j++){
         rects[i].x[j] += 0.02;
-        if(rects[i].x[j] > 3.5) {
-            rects[i].x[0] = -3;
-            rects[i].x[1] = -3;
-            rects[i].x[2] = -2;
-            rects[i].x[3] = -2;
+        if(rects[i].x[j] > 4) {
+            rects[i].x[0] = -4;
+            rects[i].x[1] = -4;
+            rects[i].x[2] = -3;
+            rects[i].x[3] = -3;
         }
     }
    }
