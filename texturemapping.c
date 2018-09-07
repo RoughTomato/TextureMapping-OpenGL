@@ -5,9 +5,9 @@
 #include "SDL.h"
 #include "SDL_image.h"
 
-#define RECTS 2
+#define RECTS 4
 #define COORDSETS 4
-#define TEXTURES 2
+#define TEXTURES 4
 
 GLuint texture[TEXTURES];
 
@@ -18,11 +18,13 @@ typedef struct Rect {
 
 Rect rects[RECTS] = {
     {{-2, -2, -1, -1}, {1.0, -1.0, -1.0, 1.0}},
-    {{-3.5, -3.5, -2.5, -2.5}, {1.0, -1.0, -1.0, 1.0}}
+    {{-3.5, -3.5, -2.5, -2.5}, {1.0, -1.0, -1.0, 1.0}},
+    {{-5, -5, -4, -4}, {1.0, -1.0, -1.0, 1.0}},
+    {{-6.5, -6.5, -5.5, -5.5}, {1.0, -1.0, -1.0, 1.0}}
 };
 
 SDL_Surface *images[TEXTURES];
-const char *imageList[TEXTURES] = { "images/wick.jpg", "images/bladerunner.jpg" };
+const char *imageList[TEXTURES] = { "images/wick.jpg", "images/bladerunner.jpg", "images/cargo.jpg", "images/deepwater.jpg" };
 
 void loadImages(void) {
     for(int i = 0; i < TEXTURES; i++){
@@ -40,7 +42,7 @@ void init(void) {
     glDepthFunc(GL_LESS);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     loadImages();
-    glGenTextures(2, texture);
+    glGenTextures(TEXTURES, texture);
 
     for(int i = 0; i < TEXTURES; i++){
         glBindTexture(GL_TEXTURE_2D, texture[i]);
